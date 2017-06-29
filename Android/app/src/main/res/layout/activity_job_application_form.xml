@@ -26,6 +26,7 @@
                 android:layout_margin="10dp"/>
 
             <EditText
+                android:id="@+id/edittext_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/form_company"
@@ -86,6 +87,7 @@
                 android:layout_margin="10dp"/>
 
             <EditText
+                android:id="@+id/edittext_recruiter_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/form_recruiter"
@@ -106,6 +108,7 @@
                 android:layout_margin="10dp"/>
 
             <EditText
+                android:id="@+id/edittext_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -128,6 +131,7 @@
                 android:layout_margin="10dp"/>
 
             <EditText
+                android:id="@+id/edittext_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
@@ -142,7 +146,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -157,6 +160,7 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/edittext_job_position"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -191,11 +195,19 @@
                 android:layout_margin="10dp"/>
 
             <EditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:layout_margin="10dp"
                 android:hint="@string/form_compensation"/>
+
+            <Spinner
+                android:id="@+id/spinner_compensation_kind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/form_compensation_variations"
+                android:spinnerMode="dropdown"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
 

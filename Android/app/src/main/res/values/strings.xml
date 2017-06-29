@@ -30,5 +30,10 @@
     <string name="form_pending_action_prompt">Pending Action</string>
     <string name="form_notes">Additional Notes</string>
     <string name="title_activity_job_list">JobListActivity</string>
+    <string-array name="form_compensation_variations">
+        <item>/year</item>
+        <item>/month</item>
+        <item>/hour</item>
+    </string-array>
 
 </resources>
