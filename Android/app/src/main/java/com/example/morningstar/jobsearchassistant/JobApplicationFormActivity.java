@@ -2,6 +2,10 @@ package com.example.morningstar.jobsearchassistant;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
@@ -14,21 +18,28 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class JobApplicationFormActivity extends AppCompatActivity {
 
     TextView tv_date, tv_time;
-    Calendar myCalendar;
+    EditText et_company;
+    Spinner s_status, s_pendingAction;
+    Calendar mCalendar;
+    SQLiteDatabase mDb;
+    Toast mToast;
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            mCalendar.set(Calendar.YEAR, year);
+            mCalendar.set(Calendar.MONTH, monthOfYear);
+            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateMeetingDateLabel();
         }
 
@@ -38,30 +49,37 @@ public class JobApplicationFormActivity extends AppCompatActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            myCalendar.set(Calendar.MINUTE, minute);
+            mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            mCalendar.set(Calendar.MINUTE, minute);
             updateMeetingTimeLabel();
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_application_form);
 
-        myCalendar = Calendar.getInstance();
+        JobApplicationDbHelper dbHelper = new JobApplicationDbHelper(this);
+        mDb = dbHelper.getWritableDatabase();
+
+        mCalendar = Calendar.getInstance();
 
         tv_date = (TextView) findViewById(R.id.textview_date);
         tv_time = (TextView) findViewById(R.id.textview_time);
+        s_pendingAction = (Spinner) findViewById(R.id.spinner_pending_action);
+        s_status = (Spinner) findViewById(R.id.spinner_status);
+        et_company = (EditText) findViewById(R.id.edittext_company);
 
         tv_date.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(JobApplicationFormActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(JobApplicationFormActivity.this, date, mCalendar
+                        .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
+                        mCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -69,8 +87,8 @@ public class JobApplicationFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 new TimePickerDialog(JobApplicationFormActivity.this, time,
-                        myCalendar.get(Calendar.HOUR_OF_DAY),
-                        myCalendar.get(Calendar.MINUTE),
+                        mCalendar.get(Calendar.HOUR_OF_DAY),
+                        mCalendar.get(Calendar.MINUTE),
                         false).show();
             }
         });
@@ -82,7 +100,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
 
         String myFormat = "h:mm a";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        tv_time.setText(sdf.format(myCalendar.getTime()));
+        tv_time.setText(sdf.format(mCalendar.getTime()));
 
     }
 
@@ -91,7 +109,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        tv_date.setText(sdf.format(myCalendar.getTime()));
+        tv_date.setText(sdf.format(mCalendar.getTime()));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,7 +122,31 @@ public class JobApplicationFormActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_save:
+                String company = et_company.getText().toString().trim();
+                if(company.equals(""))
+                {
+                    if(mToast != null)
+                        mToast.cancel();
 
+                    mToast = Toast.makeText(this, this.getString(R.string.form_error_company), Toast.LENGTH_LONG);
+                    mToast.show();
+                    
+                }
+                else
+                {
+                    ContentValues cv = new ContentValues();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_COMPANY, company);
+
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_JOB_STATUS, 1);
+                    mDb.insert(JobApplicationContract.JobApplication.TABLE_NAME, null, cv);
+
+                    Intent data = new Intent();
+                    String text = "Result to be returned....";
+                    data.setData(Uri.parse(text));
+                    setResult(RESULT_OK, data);
+                    finish();
+
+                }
                 return true;
 
             default:

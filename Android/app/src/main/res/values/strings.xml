@@ -37,4 +37,5 @@
     </string-array>
     <string name="form_meeting_date">Meeting Date</string>
     <string name="form_meeting_time">Time</string>
+    <string name="form_error_company">Must add a company name to add a Job Application</string>
 </resources>
