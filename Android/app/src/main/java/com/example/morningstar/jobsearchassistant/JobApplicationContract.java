@@ -24,5 +24,7 @@ public class JobApplicationContract {
         public static final String COLUMN_NOTES = "notes";
         public static final String COLUMN_TIMESTAMP = "timestamp";
         public static final String COLUMN_DATE_MEETING = "dateMeeting";
+        public static final String COLUMN_REMINDER_EMAIL = "reminderEmail";
+        public static final String COLUMN_REMINDER_MEETING = "reminderMeeting";
     }
 }

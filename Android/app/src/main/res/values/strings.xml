@@ -38,4 +38,22 @@
     <string name="form_meeting_date">Meeting Date</string>
     <string name="form_meeting_time">Time</string>
     <string name="form_error_company">Must add a company name to add a Job Application</string>
+    <string name="form_reminders">Reminder</string>
+    <string name="form_reminder_prompt">Select a reminder time</string>
+    <string-array name="form_reminder_array">
+        <item>None</item>
+        <item>10 minutes before</item>
+        <item>15 minutes before</item>
+        <item>20 minutes before</item>
+        <item>25 minutes before</item>
+        <item>30 minutes before</item>
+        <item>45 minutes before</item>
+        <item>1 hour before</item>
+        <item>2 hours before</item>
+        <item>3 hours before</item>
+        <item>12 hours before</item>
+        <item>24 hours before</item>
+        <item>2 days before</item>
+        <item>1 week before</item>
+    </string-array>
 </resources>

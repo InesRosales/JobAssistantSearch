@@ -16,7 +16,6 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
 
     final private JobListListener mOnClickListener;
     private Cursor cursor;
-    private int viewHolderCount = 0;
 
     public interface JobListListener{
         void onJobItemClick(int position);
@@ -50,10 +49,6 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
 
         View view = layoutInflater.inflate(layoutIdForJobListItem, viewGroup, false);
         JobViewHolder jobViewHolder = new JobViewHolder(view);
-
-        jobViewHolder.tv_item.setText("pos"+viewHolderCount);
-        System.out.println(viewHolderCount);
-        viewHolderCount++;
 
         return jobViewHolder;
     }

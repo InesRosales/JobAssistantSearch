@@ -46,7 +46,7 @@ public class JobListActivity extends AppCompatActivity implements  JobListAdapte
         mJobList = (RecyclerView) findViewById(R.id.rv_job_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mJobList.setLayoutManager(layoutManager);
-        mJobList.setHasFixedSize(true); //TODO change this
+        mJobList.setHasFixedSize(false);
         mAdapter = new JobListAdapter(this, cursor);
         mJobList.setAdapter(mAdapter);
     }

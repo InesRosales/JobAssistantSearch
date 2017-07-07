@@ -31,8 +31,8 @@ public class JobApplicationFormActivity extends AppCompatActivity {
 
     TextView tv_date, tv_time;
     EditText et_company, et_recruiter, et_email, et_phone, et_jobPosition, et_compensation, et_notes;
-    Spinner s_status, s_pendingAction, s_employmentType, s_compensationType;
-    LinearLayout ll_meeting;
+    Spinner s_status, s_pendingAction, s_employmentType, s_compensationType, s_reminderEmail, s_reminderMeeting;
+    LinearLayout ll_meeting, ll_emailReminder;
     Calendar mCalendar;
     SQLiteDatabase mDb;
     Toast mToast;
@@ -86,19 +86,39 @@ public class JobApplicationFormActivity extends AppCompatActivity {
         s_compensationType = (Spinner) findViewById(R.id.spinner_compensation_type);
         et_notes = (EditText) findViewById(R.id.edittext_notes);
         ll_meeting = (LinearLayout) findViewById(R.id.linearlayout_meeting);
+        ll_emailReminder= (LinearLayout) findViewById(R.id.linearlayout_email_reminder);
+        s_reminderEmail = (Spinner) findViewById(R.id.spinner_reminder_email);
+        s_reminderMeeting = (Spinner) findViewById(R.id.spinner_reminder_meeting);
 
         s_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 4 || position == 5)
-                {
+                if(position == 4 || position == 5){
                     ll_meeting.setVisibility(View.VISIBLE);
                 }
-                else
-                {
+                else{
                     ll_meeting.setVisibility(View.GONE);
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        s_pendingAction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 1){
+                    ll_emailReminder.setVisibility(View.VISIBLE);
+                }
+                else {
+                    ll_emailReminder.setVisibility(View.GONE);
+                }
+
             }
 
             @Override
@@ -121,7 +141,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
 
         tv_time.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 new TimePickerDialog(JobApplicationFormActivity.this, time,
                         mCalendar.get(Calendar.HOUR_OF_DAY),
                         mCalendar.get(Calendar.MINUTE),
@@ -159,8 +179,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_save:
                 String company = et_company.getText().toString().trim();
-                if(company.equals(""))
-                {
+                if(company.equals("")) {
                     if(mToast != null)
                         mToast.cancel();
 
@@ -168,8 +187,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
                     mToast.show();
                     
                 }
-                else
-                {
+                else {
                     ContentValues cv = new ContentValues();
                     cv.put(JobApplicationContract.JobApplication.COLUMN_COMPANY, company);
 
@@ -179,8 +197,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
                     int pendingAction = s_pendingAction.getSelectedItemPosition();
                     cv.put(JobApplicationContract.JobApplication.COLUMN_PENDING_ACTION, pendingAction);
 
-                    if(ll_meeting.isShown())
-                    {
+                    if(ll_meeting.isShown()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:MM");
                         String date = sdf.format(mCalendar.getTime());
 
@@ -210,6 +227,12 @@ public class JobApplicationFormActivity extends AppCompatActivity {
 
                     String notes = et_notes.getText().toString().trim();
                     cv.put(JobApplicationContract.JobApplication.COLUMN_NOTES, notes);
+
+                    int reminderMeeting = s_reminderMeeting.getSelectedItemPosition();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_REMINDER_MEETING, reminderMeeting);
+
+                    int reminderEmail = s_reminderEmail.getSelectedItemPosition();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_REMINDER_EMAIL, reminderEmail);
 
                     mDb.insert(JobApplicationContract.JobApplication.TABLE_NAME, null, cv);
 

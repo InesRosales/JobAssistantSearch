@@ -34,7 +34,9 @@ public class JobApplicationDbHelper extends SQLiteOpenHelper {
                 JobApplicationContract.JobApplication.COLUMN_COMPENSATION_TYPE+" INTEGER, "+
                 JobApplicationContract.JobApplication.COLUMN_NOTES+" TEXT, "+
                 JobApplicationContract.JobApplication.COLUMN_TIMESTAMP+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "+
-                JobApplicationContract.JobApplication.COLUMN_DATE_MEETING+" TIMESTAMP"+
+                JobApplicationContract.JobApplication.COLUMN_DATE_MEETING+" TIMESTAMP, "+
+                JobApplicationContract.JobApplication.COLUMN_REMINDER_EMAIL+" INTEGER, "+
+                JobApplicationContract.JobApplication.COLUMN_REMINDER_MEETING+" INTEGER "+
                 ");";
 
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE_JOB_APPLICATION);
