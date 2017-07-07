@@ -30,7 +30,7 @@ public class JobApplicationDbHelper extends SQLiteOpenHelper {
                 JobApplicationContract.JobApplication.COLUMN_PHONE +" TEXT, "+
                 JobApplicationContract.JobApplication.COLUMN_JOB_POSITION +" TEXT, "+
                 JobApplicationContract.JobApplication.COLUMN_EMPLOYMENT_TYPE+" INTEGER, "+
-                JobApplicationContract.JobApplication.COLUMN_COMPENSATION+" INTEGER, "+
+                JobApplicationContract.JobApplication.COLUMN_COMPENSATION+" TEXT, "+
                 JobApplicationContract.JobApplication.COLUMN_COMPENSATION_TYPE+" INTEGER, "+
                 JobApplicationContract.JobApplication.COLUMN_NOTES+" TEXT, "+
                 JobApplicationContract.JobApplication.COLUMN_TIMESTAMP+" TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "+

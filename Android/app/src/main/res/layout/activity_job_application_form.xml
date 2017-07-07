@@ -238,6 +238,7 @@
                 android:layout_margin="10dp"/>
 
             <EditText
+                android:id="@+id/edittext_compensation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -245,7 +246,7 @@
                 android:hint="@string/form_compensation"/>
 
             <Spinner
-                android:id="@+id/spinner_compensation_kind"
+                android:id="@+id/spinner_compensation_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/form_compensation_variations"
@@ -268,6 +269,7 @@
                 android:layout_margin="10dp"/>
 
             <EditText
+                android:id="@+id/edittext_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

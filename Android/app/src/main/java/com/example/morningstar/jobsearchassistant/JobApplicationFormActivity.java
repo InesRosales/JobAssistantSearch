@@ -27,8 +27,8 @@ import android.widget.Toast;
 public class JobApplicationFormActivity extends AppCompatActivity {
 
     TextView tv_date, tv_time;
-    EditText et_company;
-    Spinner s_status, s_pendingAction;
+    EditText et_company, et_recruiter, et_email, et_phone, et_jobPosition, et_compensation, et_notes;
+    Spinner s_status, s_pendingAction, s_employmentType, s_compensationType;
     Calendar mCalendar;
     SQLiteDatabase mDb;
     Toast mToast;
@@ -71,6 +71,15 @@ public class JobApplicationFormActivity extends AppCompatActivity {
         s_pendingAction = (Spinner) findViewById(R.id.spinner_pending_action);
         s_status = (Spinner) findViewById(R.id.spinner_status);
         et_company = (EditText) findViewById(R.id.edittext_company);
+        et_recruiter = (EditText) findViewById(R.id.edittext_recruiter_name);
+        et_email = (EditText) findViewById(R.id.edittext_email);
+        et_phone = (EditText) findViewById(R.id.edittext_phone);
+        et_jobPosition = (EditText) findViewById(R.id.edittext_job_position);
+        s_employmentType = (Spinner) findViewById(R.id.spinner_employment_type);
+        et_compensation = (EditText) findViewById(R.id.edittext_compensation);
+        s_compensationType = (Spinner) findViewById(R.id.spinner_compensation_type);
+        et_notes = (EditText) findViewById(R.id.edittext_notes);
+
 
         tv_date.setOnClickListener(new View.OnClickListener() {
 
@@ -137,7 +146,38 @@ public class JobApplicationFormActivity extends AppCompatActivity {
                     ContentValues cv = new ContentValues();
                     cv.put(JobApplicationContract.JobApplication.COLUMN_COMPANY, company);
 
-                    cv.put(JobApplicationContract.JobApplication.COLUMN_JOB_STATUS, 1);
+                    int status = s_status.getSelectedItemPosition();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_JOB_STATUS, status);
+
+                    int pendingAction = s_pendingAction.getSelectedItemPosition();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_PENDING_ACTION, pendingAction);
+
+                    //TODO add the meeting here
+
+                    String recruiter = et_recruiter.getText().toString().trim();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_RECRUITER, recruiter);
+
+                    String email = et_email.getText().toString().trim();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_EMAIL, email);
+
+                    String phone = et_phone.getText().toString().trim();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_PHONE, phone);
+
+                    String jobPosition = et_jobPosition.getText().toString().trim();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_JOB_POSITION, jobPosition);
+
+                    int employmentType = s_employmentType.getSelectedItemPosition();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_EMPLOYMENT_TYPE, employmentType);
+
+                    String compensation = et_compensation.getText().toString().trim();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_COMPENSATION, compensation);
+
+                    int compensationType = s_compensationType.getSelectedItemPosition();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_COMPENSATION_TYPE, compensationType);
+
+                    String notes = et_notes.getText().toString().trim();
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_NOTES, notes);
+
                     mDb.insert(JobApplicationContract.JobApplication.TABLE_NAME, null, cv);
 
                     Intent data = new Intent();
