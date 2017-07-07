@@ -17,8 +17,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -29,6 +32,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
     TextView tv_date, tv_time;
     EditText et_company, et_recruiter, et_email, et_phone, et_jobPosition, et_compensation, et_notes;
     Spinner s_status, s_pendingAction, s_employmentType, s_compensationType;
+    LinearLayout ll_meeting;
     Calendar mCalendar;
     SQLiteDatabase mDb;
     Toast mToast;
@@ -61,6 +65,8 @@ public class JobApplicationFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_application_form);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         JobApplicationDbHelper dbHelper = new JobApplicationDbHelper(this);
         mDb = dbHelper.getWritableDatabase();
 
@@ -79,6 +85,27 @@ public class JobApplicationFormActivity extends AppCompatActivity {
         et_compensation = (EditText) findViewById(R.id.edittext_compensation);
         s_compensationType = (Spinner) findViewById(R.id.spinner_compensation_type);
         et_notes = (EditText) findViewById(R.id.edittext_notes);
+        ll_meeting = (LinearLayout) findViewById(R.id.linearlayout_meeting);
+
+        s_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 4 || position == 5)
+                {
+                    ll_meeting.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    ll_meeting.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         tv_date.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +179,13 @@ public class JobApplicationFormActivity extends AppCompatActivity {
                     int pendingAction = s_pendingAction.getSelectedItemPosition();
                     cv.put(JobApplicationContract.JobApplication.COLUMN_PENDING_ACTION, pendingAction);
 
-                    //TODO add the meeting here
+                    if(ll_meeting.isShown())
+                    {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:MM");
+                        String date = sdf.format(mCalendar.getTime());
+
+                        cv.put(JobApplicationContract.JobApplication.COLUMN_DATE_MEETING, date);
+                    }
 
                     String recruiter = et_recruiter.getText().toString().trim();
                     cv.put(JobApplicationContract.JobApplication.COLUMN_RECRUITER, recruiter);
