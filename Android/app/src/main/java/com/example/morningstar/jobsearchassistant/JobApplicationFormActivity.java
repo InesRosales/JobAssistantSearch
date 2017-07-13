@@ -131,9 +131,11 @@ public class JobApplicationFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(JobApplicationFormActivity.this, date, mCalendar
+                DatePickerDialog datePickerDialog = new DatePickerDialog(JobApplicationFormActivity.this, date, mCalendar
                         .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
-                        mCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        mCalendar.get(Calendar.DAY_OF_MONTH));
+                        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                        datePickerDialog.show();
             }
         });
 
