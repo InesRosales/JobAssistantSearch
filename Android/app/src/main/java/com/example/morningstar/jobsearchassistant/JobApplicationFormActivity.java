@@ -3,9 +3,7 @@ package com.example.morningstar.jobsearchassistant;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
@@ -72,23 +70,23 @@ public class JobApplicationFormActivity extends AppCompatActivity {
 
         mCalendar = Calendar.getInstance();
 
-        tv_date = (TextView) findViewById(R.id.textview_date);
-        tv_time = (TextView) findViewById(R.id.textview_time);
-        s_pendingAction = (Spinner) findViewById(R.id.spinner_pending_action);
-        s_status = (Spinner) findViewById(R.id.spinner_status);
-        et_company = (EditText) findViewById(R.id.edittext_company);
-        et_recruiter = (EditText) findViewById(R.id.edittext_recruiter_name);
-        et_email = (EditText) findViewById(R.id.edittext_email);
-        et_phone = (EditText) findViewById(R.id.edittext_phone);
-        et_jobPosition = (EditText) findViewById(R.id.edittext_job_position);
-        s_employmentType = (Spinner) findViewById(R.id.spinner_employment_type);
-        et_compensation = (EditText) findViewById(R.id.edittext_compensation);
-        s_compensationType = (Spinner) findViewById(R.id.spinner_compensation_type);
-        et_notes = (EditText) findViewById(R.id.edittext_notes);
-        ll_meeting = (LinearLayout) findViewById(R.id.linearlayout_meeting);
-        ll_emailReminder= (LinearLayout) findViewById(R.id.linearlayout_email_reminder);
-        s_reminderEmail = (Spinner) findViewById(R.id.spinner_reminder_email);
-        s_reminderMeeting = (Spinner) findViewById(R.id.spinner_reminder_meeting);
+        tv_date = (TextView) findViewById(R.id.form_tv_date);
+        tv_time = (TextView) findViewById(R.id.form_tv_time);
+        s_pendingAction = (Spinner) findViewById(R.id.form_s_pendingAction);
+        s_status = (Spinner) findViewById(R.id.form_s_status);
+        et_company = (EditText) findViewById(R.id.form_et_company);
+        et_recruiter = (EditText) findViewById(R.id.form_et_recruiter);
+        et_email = (EditText) findViewById(R.id.form_et_email);
+        et_phone = (EditText) findViewById(R.id.form_et_phone);
+        et_jobPosition = (EditText) findViewById(R.id.form_et_jobPosition);
+        s_employmentType = (Spinner) findViewById(R.id.form_s_jobPositionType);
+        et_compensation = (EditText) findViewById(R.id.form_et_compensation);
+        s_compensationType = (Spinner) findViewById(R.id.form_s_compensationType);
+        et_notes = (EditText) findViewById(R.id.form_et_notes);
+        ll_meeting = (LinearLayout) findViewById(R.id.form_ll_meeting);
+        ll_emailReminder= (LinearLayout) findViewById(R.id.form_ll_reminderEmail);
+        s_reminderEmail = (Spinner) findViewById(R.id.form_s_reminderEmail);
+        s_reminderMeeting = (Spinner) findViewById(R.id.form_s_reminderMeeting);
 
         s_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
@@ -162,7 +160,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
 
     private void updateMeetingDateLabel() {
 
-        String myFormat = "MM/dd/yy";
+        String myFormat = Util.DATE_FORMAT;
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         tv_date.setText(sdf.format(mCalendar.getTime()));
@@ -198,7 +196,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
                     cv.put(JobApplicationContract.JobApplication.COLUMN_PENDING_ACTION, pendingAction);
 
                     if(ll_meeting.isShown()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:MM");
+                        SimpleDateFormat sdf = new SimpleDateFormat(Util.DATE_HOUR_FORMAT);
                         String date = sdf.format(mCalendar.getTime());
 
                         cv.put(JobApplicationContract.JobApplication.COLUMN_DATE_MEETING, date);
@@ -217,7 +215,7 @@ public class JobApplicationFormActivity extends AppCompatActivity {
                     cv.put(JobApplicationContract.JobApplication.COLUMN_JOB_POSITION, jobPosition);
 
                     int employmentType = s_employmentType.getSelectedItemPosition();
-                    cv.put(JobApplicationContract.JobApplication.COLUMN_EMPLOYMENT_TYPE, employmentType);
+                    cv.put(JobApplicationContract.JobApplication.COLUMN_JOB_POSITION_TYPE, employmentType);
 
                     String compensation = et_compensation.getText().toString().trim();
                     cv.put(JobApplicationContract.JobApplication.COLUMN_COMPENSATION, compensation);
@@ -236,18 +234,13 @@ public class JobApplicationFormActivity extends AppCompatActivity {
 
                     mDb.insert(JobApplicationContract.JobApplication.TABLE_NAME, null, cv);
 
-                    Intent data = new Intent();
-                    String text = "Result to be returned....";
-                    data.setData(Uri.parse(text));
-                    setResult(RESULT_OK, data);
+                    setResult(RESULT_OK, null);
                     finish();
 
                 }
                 return true;
 
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }

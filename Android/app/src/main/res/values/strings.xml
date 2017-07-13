@@ -4,8 +4,8 @@
     <string name="form_email">E-mail</string>
     <string name="form_company">Company</string>
     <string name="form_position">Job Position</string>
-    <string name="form_employment_type_prompt">Employment Type</string>
-    <string-array name="form_employment_type_array">
+    <string name="form_job_position_type_prompt">Employment Type</string>
+    <string-array name="form_job_position_type_array">
         <item>Full-Time</item>
         <item>Part-Time</item>
         <item>Unknown</item>
@@ -38,7 +38,7 @@
     <string name="form_meeting_date">Meeting Date</string>
     <string name="form_meeting_time">Time</string>
     <string name="form_error_company">Must add a company name to add a Job Application</string>
-    <string name="form_reminders">Reminder</string>
+    <string name="form_reminders">Reminder:</string>
     <string name="form_reminder_prompt">Select a reminder time</string>
     <string-array name="form_reminder_array">
         <item>None</item>

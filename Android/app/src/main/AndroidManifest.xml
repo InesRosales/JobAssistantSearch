@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".JobApplicationFormActivity"></activity>
+        <activity android:name=".JobApplicationFormActivity" />
+        <activity android:name=".JobApplicationActivity"></activity>
     </application>
 
 </manifest>

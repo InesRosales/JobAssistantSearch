@@ -21,7 +21,6 @@ public class JobListActivity extends AppCompatActivity implements  JobListAdapte
     private RecyclerView mJobList;
 
     private SQLiteDatabase mDb;
-    Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +71,11 @@ public class JobListActivity extends AppCompatActivity implements  JobListAdapte
 
     @Override
     public void onJobItemClick(int position) {
-        if(mToast != null)
-            mToast.cancel();
 
-        mToast = Toast.makeText(this, "Pos"+position, Toast.LENGTH_LONG);
-        mToast.show();
+//        if(mToast != null)
+  //          mToast.cancel();
+//
+  //      mToast = Toast.makeText(this, "Pos", Toast.LENGTH_LONG);
+    //    mToast.show();
     }
 }

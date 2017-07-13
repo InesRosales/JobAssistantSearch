@@ -18,7 +18,7 @@ public class JobApplicationContract {
         public static final String COLUMN_EMAIL = "email";
         public static final String COLUMN_PHONE = "phone";
         public static final String COLUMN_JOB_POSITION = "jobPosition";
-        public static final String COLUMN_EMPLOYMENT_TYPE = "employmentType";
+        public static final String COLUMN_JOB_POSITION_TYPE = "employmentType";
         public static final String COLUMN_COMPENSATION = "compensation";
         public static final String COLUMN_COMPENSATION_TYPE = "compensationType";
         public static final String COLUMN_NOTES = "notes";

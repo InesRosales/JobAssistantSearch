@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.morningstar.jobsearchassistant.JobApplicationFormActivity">
+    tools:context="com.example.morningstar.jobsearchassistant.JobApplicationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,18 +23,18 @@
                 android:drawableLeft="@drawable/ic_business_center_black_24dp"
                 android:layout_margin="10dp"/>
 
-            <EditText
-                android:id="@+id/form_et_company"
+            <TextView
+                android:id="@+id/job_et_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="@string/form_company" />
+                android:textSize="18sp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,94 +42,98 @@
                 android:gravity="center"
                 android:drawableStart="@drawable/ic_error_outline_black_24dp"
                 android:drawableLeft="@drawable/ic_error_outline_black_24dp"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10sp"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/form_s_status"
+                <TextView
+                    android:id="@+id/job_tv_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:entries="@array/form_status_array"
-                    android:prompt="@string/form_status_prompt"
-                    android:spinnerMode="dialog"/>
+                    android:textSize="18dp"/>
 
                 <LinearLayout
-                    android:id="@+id/form_ll_meeting"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/job_ll_meeting"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                        <LinearLayout
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/job_tv_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/job_tv_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/form_reminders"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/job_tv_reminderMeeting"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_margin="10dp"
+                            android:textSize="18sp"/>
 
-                            <TextView
-                                android:id="@+id/form_tv_date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:focusable="false"
-                                android:hint="@string/form_meeting_date"
-                                android:layout_margin="10dp"
-                                android:textSize="18sp"
-                                android:longClickable="false"/>
+                    </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/form_tv_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:focusable="false"
-                                android:hint="@string/form_meeting_time"
-                                android:layout_margin="10dp"
-                                android:textSize="18sp"
-                                android:longClickable="false"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/form_reminders"
-                                android:layout_marginLeft="12dp"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginTop="10dp"/>
-
-                            <Spinner
-                                android:id="@+id/form_s_reminderMeeting"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:spinnerMode="dialog"
-                                android:prompt="@string/form_reminder_prompt"
-                                android:entries="@array/form_reminder_array"/>
-
-                        </LinearLayout>
                 </LinearLayout>
 
-                <Spinner
-                    android:id="@+id/form_s_pendingAction"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:entries="@array/form_pending_action_array"
-                    android:prompt="@string/form_pending_action_prompt"
-                    android:spinnerMode="dialog"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/form_pending_action_prompt"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/job_tv_pendingAction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/form_ll_reminderEmail"
+                    android:id="@+id/job_ll_reminderEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -139,22 +143,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/form_reminders"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_margin="10dp"
+                        android:textSize="18sp"/>
 
-                    <Spinner
-                        android:id="@+id/form_s_reminderEmail"
+                    <TextView
+                        android:id="@+id/job_tv_reminderEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:spinnerMode="dialog"
-                        android:prompt="@string/form_reminder_prompt"
-                        android:entries="@array/form_reminder_array"/>
+                        android:textSize="18sp"/>
+
                 </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -170,12 +174,13 @@
                 android:drawableLeft="@drawable/ic_face_black_24dp"
                 android:layout_margin="10dp"/>
 
-            <EditText
-                android:id="@+id/form_et_recruiter"
+            <TextView
+                android:id="@+id/job_tv_recruiter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/form_recruiter"
+                android:textSize="18sp"
                 android:layout_margin="10dp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -191,13 +196,12 @@
                 android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
                 android:layout_margin="10dp"/>
 
-            <EditText
-                android:id="@+id/form_et_email"
+            <TextView
+                android:id="@+id/job_tv_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="@string/form_email"
-                android:inputType="textEmailAddress" />
+                android:textSize="18sp"/>
 
         </LinearLayout>
 
@@ -214,13 +218,12 @@
                 android:drawableLeft="@drawable/ic_phone_black_24dp"
                 android:layout_margin="10dp"/>
 
-            <EditText
-                android:id="@+id/form_et_phone"
+            <TextView
+                android:id="@+id/job_tv_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
                 android:layout_margin="10dp"
-                android:hint="@string/form_phone"/>
+                android:textSize="18sp"/>
 
         </LinearLayout>
 
@@ -232,9 +235,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_margin="10dp"
                 android:drawableStart="@drawable/ic_assignment_black_24dp"
                 android:drawableLeft="@drawable/ic_assignment_black_24dp" />
 
@@ -243,23 +244,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/form_et_jobPosition"
+                <TextView
+                    android:id="@+id/job_tv_jobPosition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:hint="@string/form_position"/>
+                    android:textSize="18sp"/>
 
-                <Spinner
-                    android:id="@+id/form_s_jobPositionType"
+                <TextView
+                    android:id="@+id/job_tv_jobPositionType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:entries="@array/form_job_position_type_array"
-                    android:prompt="@string/form_job_position_type_prompt"
-                    android:spinnerMode="dialog" />
+                    android:textSize="18sp"/>
 
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -275,20 +275,18 @@
                 android:drawableLeft="@drawable/ic_attach_money_black_24dp"
                 android:layout_margin="10dp"/>
 
-            <EditText
-                android:id="@+id/form_et_compensation"
+            <TextView
+                android:id="@+id/job_tv_compensation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:layout_margin="10dp"
-                android:hint="@string/form_compensation"/>
+                android:textSize="18sp"/>
 
-            <Spinner
-                android:id="@+id/form_s_compensationType"
+            <TextView
+                android:id="@+id/job_tv_compensationType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/form_compensation_variations"
-                android:spinnerMode="dropdown"
+                android:textSize="18sp"
                 android:layout_margin="10dp"/>
 
         </LinearLayout>
@@ -306,12 +304,12 @@
                 android:gravity="center"
                 android:layout_margin="10dp"/>
 
-            <EditText
-                android:id="@+id/form_et_notes"
+            <TextView
+                android:id="@+id/job_tv_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="@string/form_notes"/>
+                android:textSize="18sp"/>
 
         </LinearLayout>
 

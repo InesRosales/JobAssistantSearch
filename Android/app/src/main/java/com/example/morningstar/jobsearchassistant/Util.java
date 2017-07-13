@@ -13,6 +13,9 @@ import java.util.List;
 
 public class Util {
 
+    static public String DATE_FORMAT = "dd / MM / yyyy";
+    static public String DATE_HOUR_FORMAT = DATE_FORMAT+" HH : mm";
+
     static public void insertFakeData(SQLiteDatabase db){
         if(db == null)
             return;
@@ -60,5 +63,16 @@ public class Util {
             db.endTransaction();
         }
 
+    }
+
+    static public String fillWithZero(int n){
+        if(n<10)
+        {
+            return "0"+Integer.toString(n);
+        }
+        else
+        {
+            return Integer.toString(n);
+        }
     }
 }
