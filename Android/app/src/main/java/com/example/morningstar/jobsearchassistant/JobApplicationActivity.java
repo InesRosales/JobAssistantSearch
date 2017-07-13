@@ -16,9 +16,8 @@ import java.util.Calendar;
 public class JobApplicationActivity extends AppCompatActivity {
 
     int id;
-    TextView tv_company, tv_status, tv_date, tv_time, tv_reminderMeeting, tv_pendingAction, tv_reminderEmail,
-            tv_recruiter, tv_email, tv_phone, tv_jobPosition, tv_jobPositionType, tv_compensation, tv_compensationType, tv_notes;
-    LinearLayout ll_reminderMeeting, ll_reminderEmail;
+    TextView
+            tv_email, tv_phone, tv_jobPosition, tv_jobPositionType, tv_compensation, tv_compensationType, tv_notes;
     SQLiteDatabase mDb;
     JobApplication job;
 
@@ -70,12 +69,34 @@ public class JobApplicationActivity extends AppCompatActivity {
             job.setCompensationType(compensationType);
             job.setNotes(notes);
 
-            tv_company = (TextView) findViewById(R.id.job_et_company);
+            TextView tv_company = (TextView) findViewById(R.id.job_et_company);
             tv_company.setText(company);
 
             String[] array = getResources().getStringArray(R.array.form_status_array);
-            tv_status = (TextView) findViewById(R.id.job_tv_status);
+            TextView tv_status = (TextView) findViewById(R.id.job_tv_status);
             tv_status.setText(array[status]);
+
+            LinearLayout ll_pendingAction = (LinearLayout) findViewById(R.id.job_ll_pendingAction);
+
+            if(pendingAction != 0) {
+
+                TextView tv_pendingAction = (TextView) findViewById(R.id.job_tv_pendingAction);
+                array = getResources().getStringArray(R.array.form_pending_action_array);
+                tv_pendingAction.setText(array[pendingAction]);
+
+                if(reminderEmail != 0) {
+                    array = getResources().getStringArray(R.array.form_reminder_array);
+                    TextView tv_reminderEmail = (TextView) findViewById(R.id.job_tv_reminderEmail);
+                    tv_reminderEmail.setText(array[reminderEmail]);
+
+                    LinearLayout ll_reminderEmail = (LinearLayout) findViewById(R.id.job_ll_reminderEmail);
+                    ll_reminderEmail.setVisibility(View.VISIBLE);
+                }
+
+            }
+            else{
+                ll_pendingAction.setVisibility(View.GONE);
+            }
 
             if (status == 4 || status == 5) {
 
@@ -84,11 +105,11 @@ public class JobApplicationActivity extends AppCompatActivity {
                 try {
                     calendar.setTime(simpleDateFormat.parse(date));
 
-                    ll_reminderMeeting = (LinearLayout) findViewById(R.id.job_ll_meeting);
+                    LinearLayout ll_reminderMeeting = (LinearLayout) findViewById(R.id.job_ll_meeting);
                     ll_reminderMeeting.setVisibility(View.VISIBLE);
 
-                    tv_date = (TextView) findViewById(R.id.job_tv_date);
-                    tv_time = (TextView) findViewById(R.id.job_tv_time);
+                    TextView tv_date = (TextView) findViewById(R.id.job_tv_date);
+                    TextView tv_time = (TextView) findViewById(R.id.job_tv_time);
 
                     String ampm;
                     int amPm = calendar.get(Calendar.AM_PM);
@@ -111,61 +132,53 @@ public class JobApplicationActivity extends AppCompatActivity {
 
                     job.setMeetingTime(meeting_time);
                     tv_time.setText(meeting_time);
+
+                    TextView tv_reminderMeeting = (TextView) findViewById(R.id.job_tv_reminderMeeting);
+                    array = getResources().getStringArray(R.array.form_reminder_array);
+                    tv_reminderMeeting.setText(array[reminderMeeting]);
+
                 } catch (ParseException e) {
                     //TODO handle error
                 }
             }
 
+            handleEmptyString(recruiter, R.id.job_ll_recruiter, R.id.job_tv_recruiter);
+            handleEmptyString(email, R.id.job_ll_email, R.id.job_tv_email);
+            handleEmptyString(phone, R.id.job_ll_phone, R.id.job_tv_phone);
 
+            handleEmptyStringContainingArray(jobPosition, R.id.job_ll_jobPosition, R.id.job_tv_jobPosition, R.id.job_tv_jobPositionType, R.array.form_job_position_type_array, jobPositionType);
+            handleEmptyStringContainingArray(compensation, R.id.job_ll_compensation, R.id.job_tv_compensation, R.id.job_tv_compensationType, R.array.form_compensation_type_array, compensationType );
 
-            array = getResources().getStringArray(R.array.form_pending_action_array);
-            tv_pendingAction = (TextView) findViewById(R.id.job_tv_pendingAction);
-            tv_pendingAction.setText(array[pendingAction]);
-
-            tv_reminderMeeting = (TextView) findViewById(R.id.job_tv_reminderMeeting);
-            array = getResources().getStringArray(R.array.form_reminder_array);
-            tv_reminderMeeting.setText(array[reminderMeeting]);
-
-            if(reminderEmail == 1) {
-                tv_reminderEmail = (TextView) findViewById(R.id.job_tv_reminderEmail);
-                tv_reminderEmail.setText(array[reminderEmail]);
-
-                ll_reminderEmail.setVisibility(View.VISIBLE);
-            }
-
-            tv_recruiter = (TextView) findViewById(R.id.job_tv_recruiter);
-            tv_recruiter.setText(recruiter);
-
-            tv_email = (TextView) findViewById(R.id.job_tv_email);
-            tv_email.setText(email);
-
-            tv_phone = (TextView) findViewById(R.id.job_tv_phone);
-            tv_phone.setText(phone);
-
-            tv_jobPosition = (TextView) findViewById(R.id.job_tv_jobPosition);
-            tv_jobPositionType = (TextView) findViewById(R.id.job_tv_jobPositionType);
-            tv_jobPosition.setText(jobPosition);
-            array = getResources().getStringArray(R.array.form_job_position_type_array);
-            tv_jobPositionType.setText(array[jobPositionType]);
-
-            tv_compensation = (TextView) findViewById(R.id.job_tv_compensation);
-            tv_compensationType = (TextView) findViewById(R.id.job_tv_compensationType);
-            array = getResources().getStringArray(R.array.form_compensation_variations);
-            tv_compensation.setText(compensation);
-            tv_compensationType.setText(array[compensationType]);
-
-            tv_notes = (TextView) findViewById(R.id.job_tv_notes);
-            tv_notes.setText(notes);
+            handleEmptyString(notes, R.id.job_ll_notes, R.id.job_tv_notes);
 
         }
         else {
             //TODO error
         }
+  }
 
+    public void handleEmptyString (String text, int resource_LinearLayout, int resourceTextView)
+    {
+        if(text.equals("")){
+            LinearLayout linearLayout = (LinearLayout) findViewById(resource_LinearLayout);
+            linearLayout.setVisibility(View.GONE);
+        }else{
+            TextView textView = (TextView) findViewById(resourceTextView);
+            textView.setText(text);
+        }
+    }
 
+    public void handleEmptyStringContainingArray(String text, int resourceLinearLayout, int resourceTextView, int resourceTextViewArray, int resourceArray, int pos){
+        if(text.equals("")){
+            LinearLayout linearLayout = (LinearLayout) findViewById(resourceLinearLayout);
+            linearLayout.setVisibility(View.GONE);
+        } else {
+            TextView textView = (TextView) findViewById(resourceTextView);
+            TextView arrayTextView = (TextView) findViewById(resourceTextViewArray);
+            textView.setText(text);
 
-
-
-
+            String [] array = getResources().getStringArray(resourceArray);
+            arrayTextView.setText(array[pos]);
+        }
     }
 }
