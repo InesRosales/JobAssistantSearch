@@ -37,7 +37,10 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
     public void onBindViewHolder(JobViewHolder jobViewHolder, int position){
         if(!cursor.moveToPosition(position))
             return;
-        jobViewHolder.id = cursor.getInt(cursor.getColumnIndex(JobApplicationContract.JobApplication._ID));
+
+        long id = cursor.getInt(cursor.getColumnIndex(JobApplicationContract.JobApplication._ID));
+        jobViewHolder.itemView.setTag(id);
+
         String company = cursor.getString(cursor.getColumnIndex(JobApplicationContract.JobApplication.COLUMN_COMPANY));
         int status = cursor.getInt(cursor.getColumnIndex(JobApplicationContract.JobApplication.COLUMN_JOB_STATUS));
         jobViewHolder.bind(company, status);
@@ -66,7 +69,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
 
         TextView tv_item;
         TextView tv_status;
-        int id;
+        //long id;
 
         public JobViewHolder(View itemView){
             super(itemView);
@@ -89,6 +92,7 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.JobViewH
 
             Context context = view.getContext();
             Intent newJobActivity = new Intent(context, JobApplicationActivity.class);
+            long id = (long) view.getTag();
             newJobActivity.putExtra("id", id);
             context.startActivity(newJobActivity);
 

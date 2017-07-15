@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -48,6 +49,25 @@ public class JobListActivity extends AppCompatActivity implements  JobListAdapte
         mJobList.setHasFixedSize(false);
         mAdapter = new JobListAdapter(this, cursor);
         mJobList.setAdapter(mAdapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT){
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+                long id = (long) viewHolder.itemView.getTag();
+                if(deleteJob(id)){
+                    mAdapter.swapCursor(getAllJobs());
+                }
+
+            }
+        }).attachToRecyclerView(mJobList);
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -77,5 +97,12 @@ public class JobListActivity extends AppCompatActivity implements  JobListAdapte
 //
   //      mToast = Toast.makeText(this, "Pos", Toast.LENGTH_LONG);
     //    mToast.show();
+    }
+
+    public boolean deleteJob (long id){
+
+        return mDb.delete(JobApplicationContract.JobApplication.TABLE_NAME,
+                JobApplicationContract.JobApplication._ID + " = " + id, null) > 0 ;
+
     }
 }
